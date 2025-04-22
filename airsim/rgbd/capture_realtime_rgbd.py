@@ -20,7 +20,7 @@ pub_depth = rospy.Publisher('/camera/depth_registered/image_raw', Image, queue_s
 # CV Bridge for OpenCV <-> ROS conversions
 bridge = CvBridge()
 
-save_dir = "/home/yuan/airsim/rosbags/rgbd"
+save_dir = "airsim/rgbd"
 # -- Ground truth file (TUM format) ------------------------------------
 # We’ll store: timestamp tx ty tz qx qy qz qw
 tum_file_path = os.path.join(save_dir, "groundtruth_new.txt")  # <-- ADDED
