@@ -9,7 +9,7 @@ from matplotlib.animation import FuncAnimation
 timestamps = []
 positions = []
 
-keyframe_path = "/home/yuan/dataset/textslam/Seq_01/keyframe.txt"
+keyframe_path = "/scripts/airsim/visualize/keyframe_latest.txt"
 
 with open(keyframe_path, 'r') as f:
     for line in f:
