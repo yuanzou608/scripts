@@ -28,7 +28,7 @@ accel_txt.write("# timestamp ax ay az\n")
 association_txt = open(os.path.join(save_dir, "associations.txt"), "w")
 
 # Capture settings
-duration = 120  # seconds
+duration = 150  # seconds
 fps = 20
 interval = 1.0 / fps
 num_frames = duration * fps

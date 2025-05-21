@@ -26,5 +26,5 @@ def calculate_fps(file_path):
     print(f"Estimated FPS: {fps:.2f}")
 
 # Example usage
-file_path = "/home/yuan/dataset/my_data/RGBD/associations.txt"
+file_path = "associations.txt"
 calculate_fps(file_path)
