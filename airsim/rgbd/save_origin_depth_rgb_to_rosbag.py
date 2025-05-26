@@ -12,13 +12,17 @@ from sensor_msgs.msg import Image
 rospy.init_node("image_saver")
 
 # Paths
-image_dir = "/home/yuan/airsim/data/rgb_right"  # RGB images directory
-depth_dir = "/home/yuan/airsim/data/depth_left_raw"  # Depth images directory (now .npy)
-rosbag_path = "/home/yuan/airsim/rosbags/rgbd/orb_slam3_ros1.bag"  # ROS bag file path
+image_dir = "/home/yuan/dataset/my_data/RGBD13fps/rgb"  # RGB images directory
+depth_dir = "/home/yuan/dataset/my_data/RGBD13fps/depth"  # Depth images directory (now .npy)
+rosbag_path = "/home/yuan/dataset/my_data/RGBD13fps/rosbag/RGBD13fps.bag"  # ROS bag file path
+
+# FPS settings
+fps = 13
+interval = 1.0 / fps
 
 # Ground truth file
-old_gt_path = "/home/yuan/airsim/data/groundtruth.txt"
-new_gt_path = os.path.join(os.path.dirname(rosbag_path), "groundtruth_new.txt")
+old_gt_path = "/home/yuan/dataset/my_data/RGBD13fps/groundtruth.txt"
+new_gt_path = os.path.join(os.path.dirname(rosbag_path), "groundtruth.txt")
 
 # Read old ground truth (TUM format)
 with open(old_gt_path, 'r') as f:
@@ -38,7 +42,13 @@ new_gt_file.write("# timestamp tx ty tz qx qy qz qw\n")  # TUM format header
 
 # Get list of files
 rgb_files = sorted([f for f in os.listdir(image_dir) if f.endswith(".png")])
-depth_files = sorted([f for f in os.listdir(depth_dir) if f.endswith(".npy")])
+depth_files = sorted([f for f in os.listdir(depth_dir) if f.endswith((".npy", ".png"))])
+
+# Auto detect depth format
+depth_ext = os.path.splitext(depth_files[0])[1].lower()
+use_npy = (depth_ext == ".npy")
+rospy.loginfo(f"Depth files detected as {'NumPy (.npy)' if use_npy else 'PNG (.png)'} format.")
+
 
 # Ensure equal number of frames
 if len(rgb_files) != len(depth_files):
@@ -56,9 +66,7 @@ bag = rosbag.Bag(rosbag_path, 'w')
 # CV Bridge for OpenCV <-> ROS conversions
 bridge = CvBridge()
 
-# FPS settings
-fps = 20
-interval = 1.0 / fps
+
 
 try:
     rospy.loginfo(f"Saving {len(rgb_files)} RGB & Depth images to {rosbag_path} at {fps} FPS...")
@@ -70,10 +78,14 @@ try:
         # Read RGB Image
         rgb_path = os.path.join(image_dir, rgb_file)
         cv_rgb = cv2.imread(rgb_path)
-
-        # Read Depth Image (now .npy, convert to 32FC1)
+        
+        # read depth image
         depth_path = os.path.join(depth_dir, depth_file)
-        cv_depth = np.load(depth_path).astype(np.float32)  # in meters
+        if use_npy:
+            cv_depth = np.load(depth_path).astype(np.float32) / 1000 # in mm
+        else:
+            cv_depth = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED).astype(np.float32) # in mm
+
 
         # Convert images to ROS format
         ros_rgb = bridge.cv2_to_imgmsg(cv_rgb, encoding="bgr8")
