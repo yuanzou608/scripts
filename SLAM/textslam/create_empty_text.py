@@ -1,8 +1,8 @@
 import os
 
 # Paths
-image_folder = '/home/yuan/dataset/textslam/Seq_01_no_text/images'
-text_folder = '/home/yuan/dataset/textslam/Seq_01_no_text/text'
+image_folder = '/home/yuan/dataset/textslam/my_data/rgb'
+text_folder = '/home/yuan/dataset/textslam/my_data/text'
 
 # Create the output folder if it doesn't exist
 os.makedirs(text_folder, exist_ok=True)
