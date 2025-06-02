@@ -34,7 +34,7 @@ def images_to_video(image_folder, output_path, fps=20):
 # 示例用法
 if __name__ == "__main__":
     images_to_video(
-        image_folder="./ORB_SLAM3/Map_Viewer",  # 图片目录
-        output_path="ORB_SLAM3_Map_Viewer.mp4",   # 输出视频名
-        fps=10                                 # 设置帧率
+        image_folder="./photo_slam_frames",  # 图片目录
+        output_path="photo_slam_with_keyframe_mappoints.mp4",   # 输出视频名
+        fps=30                                 # 设置帧率
     )

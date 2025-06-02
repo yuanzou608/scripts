@@ -8,13 +8,8 @@ import time
 client = airsim.MultirotorClient()  # Change IP if needed
 client.confirmConnection()
 
-# # Set up video properties
-# frame_width = 672 # Match settings.json
-# frame_height = 376
-# fps = 30  # Frames per second
-
 camera_name = "front_left_custom"
-
+image_type = "segmentation"
 
 print("Press 'q' to stop recording...")
 
@@ -23,9 +18,12 @@ print('camera_info: ', camera_info)
 
 # Start video capture loop
 while True:
-    # Capture an image from the front_center_custom camera
+    if image_type == 'RGB':
+        # Capture an image from the camera
+        requests = [airsim.ImageRequest(camera_name, airsim.ImageType.Scene, False, False)]
+    elif image_type == 'segmentation':
+        requests = [airsim.ImageRequest(camera_name, airsim.ImageType.Segmentation, False, False)]
 
-    requests = [airsim.ImageRequest(camera_name, airsim.ImageType.Scene, False, False)]
     responses = client.simGetImages(requests)
 
     # Convert response to an image
@@ -38,6 +36,8 @@ while True:
 
         # Display image using OpenCV
         cv2.imshow("AirSim Video", img_bgr)
+
+
 
 
     else:
