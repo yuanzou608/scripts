@@ -35,6 +35,6 @@ def images_to_video(image_folder, output_path, fps=20):
 if __name__ == "__main__":
     images_to_video(
         image_folder="./photo_slam_frames",  # 图片目录
-        output_path="photo_slam_with_keyframe_mappoints.mp4",   # 输出视频名
-        fps=30                                 # 设置帧率
+        output_path="photo_slam_with_semantic.mp4",   # 输出视频名
+        fps=90                                 # 设置帧率
     )
