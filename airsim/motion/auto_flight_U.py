@@ -93,15 +93,15 @@ client.moveOnPathAsync(
     adaptive_lookahead=1                                  # 根据速度自适应
 ).join()
 
-# ✅ 回到原点后悬停 10 秒
+# ✅ 回到原点后悬停 5 秒
 print("Hovering at final position...")
 client.hoverAsync().join()
 time.sleep(5)
 
-# move to higher for whole map
-client.moveToZAsync(-100, velocity=10).join()
-client.hoverAsync().join()
-time.sleep(100)
+# # move to higher for whole map
+# client.moveToZAsync(-100, velocity=10).join()
+# client.hoverAsync().join()
+# time.sleep(100)
 
 # 降落
 print("Descending to landing height...")

@@ -1,12 +1,18 @@
-import numpy as np
-import cv2
-from pathlib import Path
+from collections import Counter
+import re
+import airsim
 
-semantic_dir = Path("/home/yuan/airsim/data/semantic")
-ids = set()
+client = airsim.MultirotorClient()  # or CarClient, etc.
+client.confirmConnection()
 
-for p in semantic_dir.glob("*.png"):
-    img = cv2.imread(str(p), cv2.IMREAD_UNCHANGED)
-    ids.update(np.unique(img).tolist())
+object_names = client.simListSceneObjects()
 
-print("出现过的标签ID有：", sorted(ids))
+prefix_counter = Counter()
+for name in object_names:
+    prefix = name.split("_")[0]
+    prefix_counter[prefix] += 1
+
+# 查看前缀统计结果
+for prefix, count in sorted(prefix_counter.items(), key=lambda x: -x[1]):
+    print(f"{prefix}: {count}")
+
