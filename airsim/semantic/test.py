@@ -1,26 +1,25 @@
-import airsim
-from collections import Counter
+import matplotlib.pyplot as plt
+import numpy as np
 
-client = airsim.MultirotorClient()  # or CarClient, etc.
-client.confirmConnection()
-id_to_objects = {}
+color_dict = {
+    (0, 0, 0): 'background',
+    (81, 13, 36): '-1',
+    (89, 121, 72): '-1',
+    (112, 105, 191): '-1',
+    (115, 176, 195): '-1',
+    (153, 108, 6): '-1',
+    (206, 190, 59): '-1'
+}
 
-object_names = client.simListSceneObjects()
-print(len(object_names))
+for color, label in color_dict.items():
+    # Color to verify
+    rgb = color
 
-for name in object_names:
-    label = client.simGetSegmentationObjectID(name)
-    if label not in id_to_objects:
-        id_to_objects[label] = []
-    id_to_objects[label].append(name)
+    # Create a 100x100 image filled with this color
+    img = np.ones((100, 100, 3), dtype=np.uint8)
+    img[:] = rgb
 
-# Print unknown/remaining labels
-for label_id in sorted(id_to_objects.keys()):
-    print(f"Label {label_id} → {len(id_to_objects[label_id])} objects")
-
-
-with open("unknown_labels.txt", "w") as f:
-    for label_id, names in sorted(id_to_objects.items()):
-        # if label_id != 255 or label_id != -1:  # Skip already-known background
-            for name in names:
-                f.write(f"{label_id} {name}\n")
+    plt.imshow(img)
+    plt.title(f"{label}: {rgb}")
+    plt.axis('off')
+    plt.show()

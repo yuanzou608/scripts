@@ -7,6 +7,6 @@ client.enableApiControl(True) # disable this, manual(keyboard/controller) contro
 client.armDisarm(True) # prepare for flight
 client.takeoffAsync().join() # takeoff, join ensure takeoff completed to next step
 
-client.moveToPositionAsync(0, 0, 0, 5).join() # move to (130, 0, -2), velocity 2m/s
+client.moveToPositionAsync(0, 0, -10, 5).join() # move to (130, 0, -2), velocity 2m/s
 
 client.hoverAsync().join()
