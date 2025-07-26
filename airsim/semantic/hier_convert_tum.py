@@ -3,21 +3,15 @@ from scipy.spatial.transform import Rotation as R
 
 def load_hierslam_poses(filepath):
     poses = []
+    current_pose = []
     with open(filepath, 'r') as f:
-        lines = f.readlines()
-        current_pose = []
-        for line in lines:
-            line = line.strip()
-            if not line:
-                if current_pose:
-                    poses.append(np.array(current_pose))
-                    current_pose = []
-                continue
-            values = list(map(float, line.split()))
+        for line in f:
+            values = list(map(float, line.strip().split()))
             current_pose.append(values)
-        if current_pose:
-            poses.append(np.array(current_pose))
-    return poses  # list of (4x4) np.array
+            poses.append(np.array(current_pose).reshape(4, 4))
+            current_pose = []
+    return poses
+
 
 def save_as_tum_format(pose_matrices, output_path, timestep=1.0, start_time=0.0, inverse=True):
     with open(output_path, 'w') as f:
@@ -32,7 +26,7 @@ def save_as_tum_format(pose_matrices, output_path, timestep=1.0, start_time=0.0,
 if __name__ == "__main__":
     # File paths
     est_file = 'estimate.txt'
-    gt_file = 'groundtruth.txt'
+    gt_file = 'traj.txt'
     est_out = 'KeyFrameTrajectory.txt'
     gt_out = 'GroundTruthTrajectory.txt'
 

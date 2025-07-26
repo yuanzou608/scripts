@@ -13,7 +13,7 @@ velocity = 1.0
 print("Taking off...")
 client.takeoffAsync().join()
 
-# 上升到 40 m 高度 (NED 坐标 z = -40)
+# 上升到 30 m 高度 (NED 坐标 z = -40)
 target_altitude = -30
 client.moveToZAsync(target_altitude, velocity=velocity).join()
 print(f"Reached altitude {abs(target_altitude)} meters.")
