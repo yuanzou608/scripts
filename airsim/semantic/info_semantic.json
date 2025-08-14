@@ -1,0 +1,84 @@
+{
+  "classes": [
+    {
+      "children": [],
+      "id": 1,
+      "name": "tree",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 2,
+      "name": "bush",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 3,
+      "name": "car",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 4,
+      "name": "fence",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 5,
+      "name": "furniture",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 6,
+      "name": "power",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 7,
+      "name": "sign",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 8,
+      "name": "Cone",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 9,
+      "name": "Cube",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 10,
+      "name": "Cylinder",
+      "parents": []
+    },
+    {
+      "children": [],
+      "id": 11,
+      "name": "Sphere",
+      "parents": []
+    }
+  ],
+  "id_to_label": [
+    -1,
+    1,
+    2,
+    3,
+    -2,
+    5,
+    6,
+    7,
+    -2,
+    -2,
+    -2,
+    -2
+  ]
+}

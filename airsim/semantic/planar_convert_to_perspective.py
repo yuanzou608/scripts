@@ -10,8 +10,8 @@ cx = 336.0
 cy = 188.0
 
 # 输入输出路径
-input_dir = "/home/yuan/airsim/data/depth"
-output_dir = "/home/yuan/airsim/data/depth_perspective"
+input_dir = "/home/yuan/airsim/data/depth_planar"
+output_dir = "/home/yuan/airsim/data/depth"
 os.makedirs(output_dir, exist_ok=True)
 
 def planar_to_perspective(depth_planar, fx, fy, cx, cy):
