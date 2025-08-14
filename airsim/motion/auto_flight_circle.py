@@ -8,7 +8,11 @@ client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
 
+<<<<<<< HEAD
 velocity = 1.0
+=======
+velocity = 1.5
+>>>>>>> origin/main
 # Takeoff to a small default height
 print("Taking off...")
 client.takeoffAsync().join()
