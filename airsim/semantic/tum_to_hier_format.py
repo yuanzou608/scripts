@@ -1,8 +1,8 @@
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 
-input_file = "groundtruth.txt"     # TUM format
-output_file = "traj.txt"           # Hier-SLAM format
+input_file = "/home/yuan/airsim/data/groundtruth.txt"     # TUM format
+output_file = "/home/yuan/airsim/data/traj.txt"           # Hier-SLAM format
 
 with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
     for line in f_in:

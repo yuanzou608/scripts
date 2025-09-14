@@ -1,8 +1,9 @@
 import rosbag2_py
 
 # Path to your ROS 2 bag file (Ensure it points to the correct `.db3` folder)
-bag_file = "/home/performer/dev_ws/rosbags"  # Adjust path accordingly
-topic = "/airsim_node/SimpleFlight/front_left_custom/DepthPlanar"  # Adjust your topic
+bag_file = "60fps/rsbag_sel_20250823_145210"  # Adjust path accordingly
+topic = "/camera/camera/color/image_raw"  # Adjust your topic
+# topic = "/camera/camera/depth/image_rect_raw"  # Adjust your topic
 
 def compute_fps(bag_file, topic):
     storage_options = rosbag2_py.StorageOptions(uri=bag_file, storage_id="sqlite3")

@@ -46,18 +46,13 @@ class AirSimDepthViewer(Node):
     def image_callback(self, msg):
         try:
             # Convert to float32 depth image (in meters)
-            cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='32FC1')
+            # cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='32FC1')
+            cv_image = self.bridge.imgmsg_to_cv2(msg)
 
-            # Clip to expected depth range for visualization
-            min_depth = 0.5
-            max_depth = 50.0
-            depth_clipped = np.clip(cv_image, min_depth, max_depth)
-
-            # Normalize to 0–255 for grayscale
-            depth_normalized = ((depth_clipped - min_depth) / (max_depth - min_depth) * 255).astype(np.uint8)
+            depth_img_mm = (cv_image * 1000).astype(np.uint16)
 
             # Show as grayscale
-            cv2.imshow("AirSim Depth Camera View", depth_normalized)
+            cv2.imshow("AirSim Depth Camera View", depth_img_mm)
             cv2.waitKey(1)
         except Exception as e:
             self.get_logger().error(f"Failed to convert depth image: {e}")
@@ -123,7 +118,7 @@ def Semantic_viewer(args=None):
         cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    mode = 'rgb' # [rgb, depth, semantic]
+    mode = 'depth' # [rgb, depth, semantic]
     if mode == 'rgb':
         RGB_viewer()
     elif mode == 'depth':

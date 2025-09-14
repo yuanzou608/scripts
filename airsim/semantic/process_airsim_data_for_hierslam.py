@@ -13,13 +13,13 @@ and paste these files like replica dataset in your destination directory
 '''
 
 def convert_airsim_to_replica_format():
-    rgb_dir = "/home/yuan/airsim/data/rgb"
-    depth_dir = "/home/yuan/airsim/data/depth"
-    semantic_dir = "/home/yuan/airsim/data/semantic"
+    rgb_dir = "/home/yuan/dataset/my_data/square25fps/rgb"
+    depth_dir = "/home/yuan/dataset/my_data/square25fps/depth"
+    semantic_dir = "/home/yuan/dataset/my_data/square25fps/semantic"
 
-    out_rgb = "/home/yuan/airsim/data/replica_format/rgb"
-    out_depth = "/home/yuan/airsim/data/replica_format/depth"
-    out_sem = "/home/yuan/airsim/data/replica_format/vis_sem_class"
+    out_rgb = "/home/yuan/dataset/my_data/square25fps/replica_format/rgb"
+    out_depth = "/home/yuan/dataset/my_data/square25fps/replica_format/depth"
+    out_sem = "/home/yuan/dataset/my_data/square25fps/replica_format/vis_sem_class"
 
     os.makedirs(out_rgb, exist_ok=True)
     os.makedirs(out_depth, exist_ok=True)
@@ -43,7 +43,7 @@ def convert_airsim_to_replica_format():
 
     print("✅ RGB converted to JPG and files renamed.")
 def find_all_unique_color():
-    semantic_dir = "/home/yuan/airsim/data/semantic"
+    semantic_dir = "/home/yuan/dataset/my_data/road25fps/semantic"
     unique_colors = set()
 
     # Go through all .png files in the folder
@@ -87,8 +87,8 @@ def color_to_label(color_dict):
         plt.show()
 
 def convert_to_grayscale_semantic(color_to_id):
-    semantic_dir = "/home/yuan/airsim/data/semantic"
-    output_dir = "/home/yuan/airsim/data/replica_format/semantic_class"
+    semantic_dir = "/home/yuan/dataset/my_data/center_complex25fps/semantic"
+    output_dir = "/home/yuan/dataset/my_data/center_complex25fps/replica_format/semantic_class"
 
     # === Get and sort all semantic image files ===
     image_files = sorted([
@@ -117,8 +117,8 @@ def convert_to_grayscale_semantic(color_to_id):
         Image.fromarray(label_map).save(output_path)
 
 def convert_gt_trajectory():
-    input_file = "/home/yuan/airsim/data/groundtruth.txt"  # TUM format
-    output_file = "/home/yuan/airsim/data/traj.txt"  # Hier-SLAM format
+    input_file = "/home/yuan/dataset/my_data/square25fps/groundtruth.txt"  # TUM format
+    output_file = "/home/yuan/dataset/my_data/square25fps/traj.txt"  # Hier-SLAM format
 
     with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
         for line in f_in:
@@ -166,40 +166,120 @@ def visualize_one_semantic_image(image):
 
 if __name__ == "__main__":
     # convert airsim data to candidate replicace format
-    convert_airsim_to_replica_format()
+    # convert_airsim_to_replica_format()
 
     # extract all visual color and its label
     # find_all_unique_color()
 
-    # define color corresponding label
+    # # define color corresponding label
+    # color_dict = {
+    #     (0, 0, 0): 'background',
+    #     (81, 13, 36): 'power',
+    #     (89, 121, 72): 'car',
+    #     (112, 105, 191): 'bush',
+    #     (115, 176, 195): 'sign',
+    #     (153, 108, 6): 'tree',
+    #     (206, 190, 59): 'furniture'
+    # }
     color_dict = {
-        (0, 0, 0): 'background',
-        (81, 13, 36): 'power',
-        (89, 121, 72): 'car',
-        (112, 105, 191): 'bush',
-        (115, 176, 195): 'sign',
-        (153, 108, 6): 'tree',
-        (206, 190, 59): 'furniture'
+    (0, 0, 0): 'background',
+    (71, 146, 227): '1', 
+    (167, 140, 147): '2', 
+    (157, 23, 236): '3', 
+    (29, 26, 199): '4', 
+    (215, 4, 215): '5',
+    (75, 50, 243): '6', 
+    (121, 67, 28): '7', 
+    (161, 171, 27): '8', 
+    (184, 145, 182): '9', 
+    (54, 72, 205): '10',
+    (146, 52, 70): '11', 
+    (158, 114, 88): '12', 
+    (89, 121, 72): '13', 
+    (68, 218, 116):'14', 
+    (153, 108, 6): '15',
+    (53, 118, 126): '16', 
+    (55, 181, 57): '17', 
+    (206, 190, 59): '18', 
+    (226, 149, 143): '19', 
+    (43, 47, 206): '20',
+    (241, 77, 149): '21', 
+    (98, 55, 74): '22', 
+    (242, 107, 146): '23', 
+    (40, 63, 99): '24', 
+    (3, 177, 32): '25',
+    (245, 22, 110): '26', 
+    (151, 126, 171): '27', 
+    (185, 243, 231): '28', 
+    (67, 17, 35): '29', 
+    (115, 176, 195): '30',
+    (156, 198, 23): '31', 
+    (181, 213, 93): '32', 
+    (222, 153, 109): '33', 
+    (24, 175, 120): '34', 
+    (134, 57, 119): '35',
+    (170, 179, 42): '36', 
+    (253, 41, 164): '37'
     }
 
-    color_to_label(color_dict)
+    # color_to_label(color_dict)
 
-    # convert to grayscale for hierslam
+    # # convert to grayscale for hierslam
+    # color_to_id = {
+    #     (0, 0, 0): 0,  # background
+    #     (81, 13, 36): 6,  # power
+    #     (89, 121, 72): 3,  # car
+    #     (112, 105, 191): 2,  # bush
+    #     (115, 176, 195): 7,  # sign
+    #     (153, 108, 6): 1,  # tree
+    #     (206, 190, 59): 5  # furniture
+    # }
     color_to_id = {
-        (0, 0, 0): 0,  # background
-        (81, 13, 36): 6,  # power
-        (89, 121, 72): 3,  # car
-        (112, 105, 191): 2,  # bush
-        (115, 176, 195): 7,  # sign
-        (153, 108, 6): 1,  # tree
-        (206, 190, 59): 5  # furniture
+    (0, 0, 0): 0,
+    (71, 146, 227): 1, 
+    (167, 140, 147): 2, 
+    (157, 23, 236): 3, 
+    (29, 26, 199): 4, 
+    (215, 4, 215): 5,
+    (75, 50, 243): 6, 
+    (121, 67, 28): 7, 
+    (161, 171, 27): 8, 
+    (184, 145, 182): 9, 
+    (54, 72, 205): 10,
+    (146, 52, 70): 11, 
+    (158, 114, 88): 12, 
+    (89, 121, 72): 13, 
+    (68, 218, 116): 14, 
+    (153, 108, 6): 15,
+    (53, 118, 126): 16, 
+    (55, 181, 57): 17, 
+    (206, 190, 59): 18, 
+    (226, 149, 143): 19, 
+    (43, 47, 206): 20,
+    (241, 77, 149): 21, 
+    (98, 55, 74): 22, 
+    (242, 107, 146): 23, 
+    (40, 63, 99): 24, 
+    (3, 177, 32): 25,
+    (245, 22, 110): 26, 
+    (151, 126, 171): 27, 
+    (185, 243, 231): 28, 
+    (67, 17, 35): 29, 
+    (115, 176, 195): 30,
+    (156, 198, 23): 31, 
+    (181, 213, 93): 32, 
+    (222, 153, 109): 33, 
+    (24, 175, 120): 34, 
+    (134, 57, 119): 35,
+    (170, 179, 42): 36, 
+    (253, 41, 164): 37
     }
 
-    # convert color semantic to gray semantic
+    # # convert color semantic to gray semantic
     convert_to_grayscale_semantic(color_to_id)
 
-    # convert tum to hierslam format
-    convert_gt_trajectory()
+    # # convert tum to hierslam format
+    # convert_gt_trajectory()
 
     # visualize, in order to better visualize, times 10 for each pixel
     # image = '/home/yuan/airsim/data/replica_format/semantic_class/semantic_class_0.png'

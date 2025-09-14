@@ -4,7 +4,7 @@ import os
 import cv2
 import numpy as np
 
-semantic_dir = "/home/yuan/airsim/data/semantic"  # 替换成你的路径
+semantic_dir = "/home/yuan/dataset/my_data/building25fps/semantic"  # 替换成你的路径
 label_set = set()
 
 for fname in sorted(os.listdir(semantic_dir)):

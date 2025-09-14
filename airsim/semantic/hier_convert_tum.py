@@ -25,10 +25,10 @@ def save_as_tum_format(pose_matrices, output_path, timestep=1.0, start_time=0.0,
 
 if __name__ == "__main__":
     # File paths
-    est_file = 'estimate.txt'
-    gt_file = 'traj.txt'
-    est_out = 'KeyFrameTrajectory.txt'
-    gt_out = 'GroundTruthTrajectory.txt'
+    est_file = 'my_data_tartanvo_1914.txt'               # 'estimate.txt'
+    gt_file = 'groundtruth_no_ts.txt'                    # 'traj.txt'
+    est_out = 'KeyFrameTrajectory.txt'      # 'KeyFrameTrajectory.txt'
+    gt_out = 'GroundTruthTrajectory.txt'    # 'GroundTruthTrajectory.txt'
 
     # Load poses
     est_poses = load_hierslam_poses(est_file)
